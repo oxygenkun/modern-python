@@ -1,18 +1,19 @@
 import textwrap
-from urllib.error import HTTPError
+import locale
 
 import click
 import requests
 
 from . import __version__
 
+LAN = locale.getlocale()[0].split("_")[0]
 
 def api_utl(api_lan: str = "en") -> str:
     return f"https://{api_lan}.wikipedia.org/api/rest_v1/page/random/summary"
 
 
 @click.command()
-@click.option('-l', '--language', default="en", help='Language of the app')
+@click.option('-l', '--language', default=LAN, help='Language of the app')
 @click.version_option(version=__version__)
 def main(language):
     """The hypermodern Python project."""
