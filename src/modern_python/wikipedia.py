@@ -1,12 +1,17 @@
+import click
 import requests
 
 
-# API_URL = "https://en.wikipedia.org/api/rest_v1/page/random/summary"
-def api_url(api_lan: str = "en") -> str:
-    return f"https://{api_lan}.wikipedia.org/api/rest_v1/page/random/summary"
+API_URL = "https://{language}.wikipedia.org/api/rest_v1/page/random/summary"
 
 
-def random_page(language: str):
-    with requests.get(api_url(language)) as response:
-        response.raise_for_status()
-        return response.json()
+def random_page(language: str = "en"):
+    url = API_URL.format(language=language)
+
+    try:
+        with requests.get(url) as response:
+            response.raise_for_status()
+            return response.json()
+    except requests.RequestException as error:
+        message = str(error)
+        raise click.ClickException(message)
