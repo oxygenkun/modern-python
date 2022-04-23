@@ -1,5 +1,5 @@
-import textwrap
 import locale
+import textwrap
 
 import click
 
@@ -9,11 +9,14 @@ LAN = locale.getlocale()[0].split("_")[0]
 
 
 @click.command()
-@click.option('-l', '--language',
-              default=LAN,
-              help="Language edition of Wikipedia",
-              metavar="LANG",
-              show_default=True)
+@click.option(
+    "-l",
+    "--language",
+    default=LAN,
+    help="Language edition of Wikipedia",
+    metavar="LANG",
+    show_default=True,
+)
 @click.version_option(version=__version__)
 def main(language):
     """The hypermodern Python project."""
